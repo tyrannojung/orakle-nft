@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useSuiClient } from "@mysten/dapp-kit";
 import { Box, Container, Text, Heading, Flex, Card } from "@radix-ui/themes";
+import Confetti from "react-confetti";
 
 interface NFTData {
   id: string;
@@ -16,7 +17,20 @@ interface NFTData {
 export function NFTView({ objectId }: { objectId: string }) {
   const [nft, setNFT] = useState<NFTData | null>(null);
   const [loading, setLoading] = useState(true);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
   const client = useSuiClient();
+
+  useEffect(() => {
+    // 윈도우 크기 설정
+    const updateWindowSize = () => {
+      setWindowSize({ width: window.innerWidth, height: window.innerHeight });
+    };
+
+    updateWindowSize();
+    window.addEventListener("resize", updateWindowSize);
+
+    return () => window.removeEventListener("resize", updateWindowSize);
+  }, []);
 
   useEffect(() => {
     async function fetchNFT() {
@@ -86,6 +100,21 @@ export function NFTView({ objectId }: { objectId: string }) {
 
   return (
     <Container size='2'>
+      <Confetti
+        width={windowSize.width}
+        height={windowSize.height}
+        numberOfPieces={200}
+        recycle={false}
+        colors={[
+          "#f44336",
+          "#e91e63",
+          "#9c27b0",
+          "#673ab7",
+          "#3f51b5",
+          "#2196f3",
+        ]}
+      />
+
       <Flex
         direction='column'
         align='center'
@@ -122,7 +151,7 @@ export function NFTView({ objectId }: { objectId: string }) {
             </Box>
 
             <Heading size='6' align='center'>
-              Orakle 챌린지 수료 인증서
+              Orakle 챌린지 합격 인증서
             </Heading>
 
             <Flex direction='column' style={{ width: "100%" }} gap='2'>
@@ -134,9 +163,28 @@ export function NFTView({ objectId }: { objectId: string }) {
                 }}
               >
                 <Flex direction='column' gap='2'>
-                  <Flex justify='between'>
+                  <Flex justify='between' align='center'>
                     <Text weight='bold'>NFT ID:</Text>
-                    <Text style={{ wordBreak: "break-all" }}>{nft.id}</Text>
+                    <Flex align='center' gap='2'>
+                      <Text>
+                        {nft.id.substring(0, 10)}...
+                        {nft.id.substring(nft.id.length - 8)}
+                      </Text>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(nft.id);
+                          alert("NFT ID가 클립보드에 복사되었습니다!");
+                        }}
+                        style={{
+                          background: "none",
+                          border: "none",
+                          cursor: "pointer",
+                          color: "var(--primary-color)",
+                        }}
+                      >
+                        📋
+                      </button>
+                    </Flex>
                   </Flex>
                   <Flex justify='between'>
                     <Text weight='bold'>번호:</Text>
@@ -154,7 +202,7 @@ export function NFTView({ objectId }: { objectId: string }) {
               </Box>
 
               <Text size='2' align='center' style={{ marginTop: "1rem" }}>
-                NFT는 블록체인에 영구적으로 기록되어 귀하의 학회 챌린지 수료를
+                NFT는 블록체인에 영구적으로 기록되어 귀하의 학회 챌린지 합격을
                 증명합니다.
               </Text>
             </Flex>
