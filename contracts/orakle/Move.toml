@@ -1,0 +1,51 @@
+# 패키지 정보 섹션
+[package]
+# 패키지 이름 - 프로젝트의 고유 식별자
+name = "orakle"
+# Move 언어 버전 설정 - 2024.beta 사용 (legacy는 이전 버전 Move 사용 시)
+edition = "2024.beta" 
+# 라이센스 정보 (주석 해제 후 사용) 예: "MIT", "GPL", "Apache 2.0"
+# license = ""
+# 작성자 정보 (주석 해제 후 사용) 예: ["이름 (이메일)", "이름 (이메일)"]
+# authors = ["..."]
+
+# 의존성(종속성) 섹션 - 프로젝트에서 사용하는 외부 패키지 정의
+[dependencies]
+# Sui 프레임워크 의존성 설정
+# git: 소스코드 저장소 URL
+# subdir: 저장소 내 하위 디렉토리 경로
+# rev: 사용할 버전(브랜치, 태그, 커밋 해시)
+# override: 충돌 시 이 버전 우선 사용
+Sui = { git = "https://github.com/MystenLabs/sui.git", subdir = "crates/sui-framework/packages/sui-framework", rev = "framework/testnet", override = true }
+
+# 원격 패키지 가져오기 예시 (주석 처리됨)
+# 원격 저장소에서 패키지를 가져올 때 git, subdir, rev 속성 지정
+# MyRemotePackage = { git = "https://some.remote/host.git", subdir = "remote/path", rev = "main" }
+
+# 로컬 의존성 예시 (주석 처리됨)
+# 로컬 경로에 있는 패키지를 가져올 때 사용
+# Local = { local = "../path/to" }
+
+# 버전 충돌 해결을 위한 override 예시 (주석 처리됨)
+# 의존성 충돌 시 특정 버전을 강제로 사용하기 위해 override = true 설정
+# Override = { local = "../conflicting/version", override = true }
+
+# 주소 섹션 - Move 코드에서 사용할 주소 별칭 정의
+[addresses]
+# 패키지의 주소 설정 - 개발 중에는 0x0으로 설정하고 배포 시 실제 주소로 변경
+sui = "0x2"
+orakle = "0x0"
+
+# 명명된 주소는 Move 코드에서 @name 형태로 접근 가능
+# 표준 라이브러리는 @std로 접근 가능 (예: std = "0x1")
+# alice = "0xA11CE"
+
+# 개발용 의존성 섹션 - 테스트 모드에서만 사용될 의존성 정의
+[dev-dependencies]
+# --test 또는 --dev 모드에서만 사용될 의존성을 지정
+# Local = { local = "../path/to/dev-build" }
+
+# 개발용 주소 섹션 - 테스트 모드에서 사용할 주소 별칭 정의
+[dev-addresses]
+# --test 또는 --dev 모드에서 주소 별칭을 다른 값으로 설정
+# alice = "0xB0B"
