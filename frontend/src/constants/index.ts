@@ -20,5 +20,5 @@ export const NFT_IMAGE_URL =
 
 // 배포된 사이트 객체 ID
 export const TESTNET_SITE_OBJECT_ID =
-  "0x41f1fe42613d6cdb9b52d587004f0f08d41861707418e21fc1765bd92d7d2443"; // 테스트넷에 사이트 배포 후 ID 입력
+  "0x41f1fe42613d6cdb9b52d587004f0f08d41861707418e21fc1765bd92d7d2443";
 export const MAINNET_SITE_OBJECT_ID = "0x"; // 메인넷에 사이트 배포 후 ID 입력

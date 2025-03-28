@@ -10,3 +10,19 @@ export function getSiteObjectId(network = NETWORK_IN_USE): string {
     ? TESTNET_SITE_OBJECT_ID
     : MAINNET_SITE_OBJECT_ID;
 }
+
+export function hexToBase36(hexStr: string): string {
+  if (hexStr.startsWith("0x")) {
+    hexStr = hexStr.slice(2);
+  }
+
+  // 16진수 문자열을 BigInt로 변환
+  const bigIntValue = BigInt("0x" + hexStr);
+
+  return bigIntValue.toString(36);
+}
+
+export function getSiteObjectIdBase36(network = NETWORK_IN_USE): string {
+  const siteId = getSiteObjectId(network);
+  return hexToBase36(siteId);
+}

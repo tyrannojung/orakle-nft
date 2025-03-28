@@ -22,7 +22,7 @@ import { useState, useEffect } from "react";
 import { NFTView } from "@/components/NFTView";
 import { useNetworkVariable } from "@/config/networkConfig";
 import { NETWORK_IN_USE, NFT_IMAGE_URL } from "@/constants";
-import { getSiteObjectId } from "@/utils/siteUrl";
+import { getSiteObjectIdBase36 } from "@/utils/siteUrl";
 
 export default function Home() {
   const currentAccount = useCurrentAccount();
@@ -332,7 +332,7 @@ export default function Home() {
                   <Text>축하합니다! NFT가 성공적으로 민팅되었습니다!</Text>
                   {nftHexaddr ? (
                     <Link
-                      href={`http://${getSiteObjectId()}.localhost:3000/0x${nftHexaddr}`}
+                      href={`http://${getSiteObjectIdBase36()}.localhost:3000/0x${nftHexaddr}`}
                       target='_blank'
                     >
                       <Button className='button'>
