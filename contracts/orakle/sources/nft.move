@@ -74,7 +74,7 @@ module orakle::nft {
           string::utf8(b"Orakle #{number} - {name}"),
           string::utf8(b"{description}"),
           string::utf8(b"{img}"),
-          string::utf8(b"http://5r09hziv9lyecnyii9ymy1iwbx3ufxlh08tqvt2lsgnq0hj1m9.localhost:3000/0x{hexaddr}"),
+          string::utf8(b"http://1n64icjuhpl5avcmop41neeqinzyr186gzvpho603jmwn8npdv.localhost:3000/0x{hexaddr}"),
       ];
       
       let mut display = display::new_with_fields<OrakleNFT>(
